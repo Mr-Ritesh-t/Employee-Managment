@@ -1,6 +1,11 @@
 import React from 'react'
 
 function CreateTask() {
+
+  const sumitHandler = () =>{
+    
+  }
+
   return (
     <div className="p-5 bg-[#1c1c1c] mt-7 rounded">
         <form className="flex flex-wrap w-full  items-start justify-between">

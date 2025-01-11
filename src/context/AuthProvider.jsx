@@ -9,15 +9,15 @@ function AuthProvider({children}) {
 
     const [UserData, setUserData] = useState(null)
 
-    useEffect(() => {
-        const {admin,employees} = getLocalStroge()
-        setUserData({admin,employees})
-    }, [])
-    
-
+   useEffect(() => {
+    setLocalStroge()
+    const {employees,admin} = getLocalStroge()
+    setUserData({employees,admin})
+   }, [])
+   
   return (
     <div>
-        <AuthContext.Provider value={{UserData}}>
+        <AuthContext.Provider value={UserData}>
           {children}
         </AuthContext.Provider>
     </div>
