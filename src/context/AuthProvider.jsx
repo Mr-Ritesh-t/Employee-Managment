@@ -11,13 +11,13 @@ function AuthProvider({children}) {
 
    useEffect(() => {
     setLocalStroge()
-    const {employees,admin} = getLocalStroge()
-    setUserData({employees,admin})
+    const {employees} = getLocalStroge()
+    setUserData(employees)
    }, [])
    
   return (
     <div>
-        <AuthContext.Provider value={UserData}>
+        <AuthContext.Provider value={[UserData,setUserData]}>
           {children}
         </AuthContext.Provider>
     </div>

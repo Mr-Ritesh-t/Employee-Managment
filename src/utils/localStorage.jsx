@@ -232,3 +232,4 @@ export const getLocalStroge = ()=>{
    const admin = JSON.parse((localStorage.getItem('admin')))
    return{employees,admin}
 }
+

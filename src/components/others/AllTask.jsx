@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/authProvider'
 
 function AllTask() {
 
-  const authdata = useContext(AuthContext)
+  const [userData,setUserData] = useContext(AuthContext)
 
 
   return (
@@ -17,8 +17,8 @@ function AllTask() {
         </div>
         
        <div className='h-[80%] overflow-auto'>
-       {authdata.employees.map(function(elem){
-        return <div className='border-2 border-emerald-400 py-5 px-4 flex justify-between rounded mb-2'>
+       {userData.map(function(elem,idx){
+        return <div key={idx} className='border-2 border-emerald-400 py-5 px-4 flex justify-between rounded mb-2'>
         <h2 className='w-1/5  text-lg font-medium '>{elem.name}</h2>
          <h3 className='w-1/5 text-lg font-medium text-yellow-300'>{elem.taskCount.newTask}</h3>
          <h5 className='w-1/5 text-lg font-medium text-blue-400'>{elem.taskCount.active}</h5>
