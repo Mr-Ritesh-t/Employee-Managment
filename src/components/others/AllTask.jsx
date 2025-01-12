@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../../context/authProvider'
+import { AuthContext } from '../../context/AuthProvider'
 
 function AllTask() {
 
