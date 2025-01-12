@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import NewTask from '../TaskList/NewTask'
 import CompleteTask from '../TaskList/CompleteTask'
-import { AuthContext } from '../../context/authProvider'
+import { AuthContext } from '../../context/AuthProvider'
 
 function CreateTask() {
 
