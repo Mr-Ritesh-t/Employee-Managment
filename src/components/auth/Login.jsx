@@ -1,32 +1,86 @@
-import React, { useState } from 'react'
+import { useState } from "react";
 
-function Login({handleLogin}) {
+function Login({ handleLogin }) {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    const [email, setemail] = useState('')
-    const [password, setpassword] = useState('')
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-    const submitHandler= (e)=>{
-        e.preventDefault()
-        handleLogin(email, password)
-        setemail('')
-        setpassword('')
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setError("");
+    if (!formData.email.includes("@")) {
+      setError("Invalid email address");
+      return;
     }
+    setIsSubmitting(true);
+    handleLogin(formData.email, formData.password);
+    setFormData({ email: "", password: "" });
+    setIsSubmitting(false);
+  };
+
   return (
-    <div className='flex h-screen w-screen items-center justify-center'>
-        <div className='border-2 border-emerald-500  p-20 rounded-2xl'>
-            <form onSubmit={(e=>{
-                submitHandler(e)
-            })} className='flex flex-col items-center justify-center'>
-                <input required value={email} onChange={
-                    (e)=>setemail(e.target.value)
-                } className='border-emerald-600 border-2 rounded-3xl py-3 px-5 m-2 bg-transparent outline-none placeholder:text-gray-400' type='email' placeholder='Entery our Email' />
-                <input required value={password} onChange={(e)=>setpassword(e.target.value)}  className='border-emerald-600 border-2 rounded-3xl py-3 px-5 m-2 bg-transparent  outline-none placeholder:text-gray-400' type='password' placeholder='Password' />
-                <button className='bg-emerald-600 rounded-3xl py-3 px-5 mt-5  text-gray-300 outline-none placeholder:text-white' type='submit'>Login</button>
-            </form>
-        </div>
+    <div className="flex h-screen w-screen items-center justify-center bg-gray-900 relative">
+      {/* Admin Credentials Box */}
+      <div className="absolute top-4 right-4 bg-gray-800 text-white p-3 rounded-md shadow-lg text-sm">
+        <p className="font-semibold">Admin Login:</p>
+        <p>Email: <span className="font-mono">admin@example.com</span></p>
+        <p>Password: <span className="font-mono">123</span></p>
+        <p className="text-xs text-gray-400 mt-1">Use these to login as admin</p>
+      </div>
+
+      <div className="bg-gray-800 p-10 rounded-xl shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-white text-center mb-5">
+          Login
+        </h2>
+        {error && <p className="text-red-500 text-sm text-center mb-3">{error}</p>}
+        <form onSubmit={submitHandler} className="flex flex-col space-y-4">
+          <input
+            required
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border border-gray-600 rounded-lg py-3 px-4 bg-gray-700 text-white outline-none focus:ring-2 focus:ring-emerald-500 placeholder-gray-400"
+            type="email"
+            placeholder="Enter your Email"
+          />
+          <div className="relative w-full">
+            <input
+              required
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full border border-gray-600 rounded-lg py-3 px-4 bg-gray-700 text-white outline-none focus:ring-2 focus:ring-emerald-500 placeholder-gray-400 pr-10"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-3 text-gray-400 hover:text-white"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+          <button
+            className="w-full bg-emerald-500 hover:bg-emerald-600 transition-all rounded-lg py-3 text-white font-semibold mt-3 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
